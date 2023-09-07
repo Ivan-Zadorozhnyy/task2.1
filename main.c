@@ -27,10 +27,22 @@ int main() {
                 strcat(inp, "\n");
                 break;
             case 3:
-                printf("Enter the file name for saving:");
-                char file [80];
-                fgets(file, sizeof(file), stdin);
+            {
+                printf("Enter the file name for saving: ");
+                char filename[80];
+                fgets(filename, sizeof(filename), stdin);
+
+                FILE *file = fopen(filename, "w");
+                if (file != NULL) {
+                    fprintf(file, "%s", inp);
+                    fclose(file);
+                    printf("Text saved to %s\n", filename);
+                } else {
+                    printf("Error opening the file for writing.\n");
+                }
+            }
                 break;
+
             case 4:
                 printf("Enter the file name for loading:");
                 break;
