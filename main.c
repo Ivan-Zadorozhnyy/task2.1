@@ -12,6 +12,7 @@ int main() {
         printf("2. Start new line\n");
         printf("3. save as file\n");
         printf("4. load file\n");
+        printf("5. print current saved text\n");
         printf("0. Exit\n");
         scanf("%d", &i);
         while(getchar() != '\n');
@@ -44,7 +45,25 @@ int main() {
                 break;
 
             case 4:
-                printf("Enter the file name for loading:");
+            {
+                printf("Enter the file name for loading: ");
+                char filename[80];
+                fgets(filename, sizeof(filename), stdin);
+
+                FILE *file = fopen(filename, "r");
+                if (file != NULL) {
+                    while (fgets(str, sizeof(str), file) != NULL) {
+                        strcat(inp, str);
+                    }
+                    fclose(file);
+                    printf("Text loaded from %s\n", filename);
+                } else {
+                    printf("Error opening the file for reading or file does not exist.\n");
+                }
+            }
+                break;
+            case 5:
+                printf("Current saved text:\n%s\n", inp);
                 break;
             case 0:
                 t = 0;
@@ -56,4 +75,3 @@ int main() {
     }
     return 0;
 }
-
