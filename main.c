@@ -33,6 +33,11 @@ int main() {
                 char filename[80];
                 fgets(filename, sizeof(filename), stdin);
 
+                size_t len = strlen(filename);
+                if (len > 0 && filename[len-1] == '\n') {
+                    filename[len-1] = '\0';
+                }
+
                 FILE *file = fopen(filename, "w");
                 if (file != NULL) {
                     fprintf(file, "%s", inp);
@@ -49,6 +54,11 @@ int main() {
                 printf("Enter the file name for loading: ");
                 char filename[80];
                 fgets(filename, sizeof(filename), stdin);
+
+                size_t len = strlen(filename);
+                if (len > 0 && filename[len-1] == '\n') {
+                    filename[len-1] = '\0';
+                }
 
                 FILE *file = fopen(filename, "r");
                 if (file != NULL) {
