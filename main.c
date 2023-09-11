@@ -13,6 +13,7 @@ int main() {
         printf("3. save as file\n");
         printf("4. load file\n");
         printf("5. print current saved text\n");
+        printf("6. find text\n");
         printf("0. Exit\n");
         scanf("%d", &i);
         while(getchar() != '\n');
@@ -27,15 +28,14 @@ int main() {
                 printf("New line is started\n");
                 strcat(inp, "\n");
                 break;
-            case 3:
-            {
+            case 3: {
                 printf("Enter the file name for saving: ");
                 char filename[80];
                 fgets(filename, sizeof(filename), stdin);
 
                 size_t len = strlen(filename);
-                if (len > 0 && filename[len-1] == '\n') {
-                    filename[len-1] = '\0';
+                if (len > 0 && filename[len - 1] == '\n') {
+                    filename[len - 1] = '\0';
                 }
 
                 FILE *file = fopen(filename, "w");
@@ -49,15 +49,14 @@ int main() {
             }
                 break;
 
-            case 4:
-            {
+            case 4: {
                 printf("Enter the file name for loading: ");
                 char filename[80];
                 fgets(filename, sizeof(filename), stdin);
 
                 size_t len = strlen(filename);
-                if (len > 0 && filename[len-1] == '\n') {
-                    filename[len-1] = '\0';
+                if (len > 0 && filename[len - 1] == '\n') {
+                    filename[len - 1] = '\0';
                 }
 
                 FILE *file = fopen(filename, "r");
@@ -74,6 +73,25 @@ int main() {
                 break;
             case 5:
                 printf("Current saved text:\n%s\n", inp);
+                break;
+            case 6:
+                printf("Enter text to search:\n");
+                fgets(str, sizeof(str), stdin);
+                size_t len = strlen(str);
+                if (len > 0 && str[len - 1] == '\n') {
+                    str[len - 1] = '\0';
+                }
+                char *pos = inp;
+                int found = 0;
+                while ((pos = strstr(pos, str)) != NULL) {
+                    printf("Found at position: %ld\n", pos - inp);
+                    pos += len;  // Move the position just after the found substring
+                    found = 1;
+                }
+
+                if (!found) {
+                    printf("Not found.\n");
+                }
                 break;
             case 0:
                 t = 0;
